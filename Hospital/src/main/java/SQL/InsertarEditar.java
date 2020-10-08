@@ -37,7 +37,6 @@ public class InsertarEditar {
                 preSt.setString(4, codigo);
             }
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -69,7 +68,6 @@ public class InsertarEditar {
                 preSt.setString(4, usuario);
             }
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -107,7 +105,6 @@ public class InsertarEditar {
                 preSt.setString(10, codigo);
             }
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -144,7 +141,6 @@ public class InsertarEditar {
                 preSt.setString(10, codigo);
             }
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -181,7 +177,6 @@ public class InsertarEditar {
                 preSt.setString(10, codigo);
             }
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -214,7 +209,6 @@ public class InsertarEditar {
                 preSt.setString(7, codigo);
             }
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -241,7 +235,6 @@ public class InsertarEditar {
                 preSt.setString(3, nombre);
             }
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -260,7 +253,6 @@ public class InsertarEditar {
             preSt.setString(5, codMedico);
             preSt.setString(6, codPaciente);
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -275,7 +267,6 @@ public class InsertarEditar {
             preSt.setString(1, codMedico);
             preSt.setString(2, nombreEspe);
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -296,7 +287,6 @@ public class InsertarEditar {
             preSt.setString(6, codMedico);
             preSt.setString(7, codPaciente);
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -317,7 +307,6 @@ public class InsertarEditar {
             preSt.setString(6, codPaciente);
             preSt.setString(7, codExamen);
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -339,7 +328,6 @@ public class InsertarEditar {
             preSt.setString(8, codMedico);
             preSt.setString(9, codExamen);
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -355,7 +343,6 @@ public class InsertarEditar {
             preSt.setString(2, codExamen);
             preSt.setString(3, fecha);
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;
@@ -368,10 +355,9 @@ public class InsertarEditar {
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
             preSt.setString(1, pathResultado);
-            preSt.setString(2, "True");
+            preSt.setString(2, "VERDADERO");
             preSt.setString(3, codCitaExamen);
             preSt.executeUpdate();
-            connection.close();
             return true;
         } catch (Exception e) {
             return false;

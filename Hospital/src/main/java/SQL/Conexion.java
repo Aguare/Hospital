@@ -9,18 +9,28 @@ import java.sql.SQLException;
  * @author aguare
  */
 public class Conexion {
-    
+
+    private static final String URL = "jdbc:mysql://localhost:3306/Hospital";
+    private String user = "root";
+    private String password = "74ef6a14";
+    private static Connection conexion = null;
+
     public static Connection Conexion() {
-        String url = "jdbc:mysql://localhost:3306/Hospital?useSSL=false";
-        String user = "root";
-        String password = "74ef6a14";
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (SQLException ex) {
-            System.out.println("Error al conectar a la Base de Datos");
+        if (conexion == null) {
+            new Conexion();
         }
-        return connection;
+        return conexion;
     }
-    
+
+    private Conexion() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion = DriverManager.getConnection(URL, user, password);
+            System.out.println("conexion establecida");
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println("No se ha podido generar la conexion");
+        }
+    }
+
 }

@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +16,7 @@ public class Obtener {
         String cantidad = "";
 
         Connection connection = Conexion.Conexion();
-        try (PreparedStatement preSt = connection.prepareStatement(query)) {
+        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
 
             preSt.setString(1, codigo);
             ResultSet result = preSt.executeQuery();
@@ -27,7 +25,6 @@ public class Obtener {
                 cantidad += result.findColumn("costo");
             }
 
-            connection.close();
         } catch (SQLException e) {
         }
         return cantidad;
@@ -47,7 +44,6 @@ public class Obtener {
                 cantidad += result.findColumn("costoConsulta");
             }
 
-            connection.close();
         } catch (SQLException e) {
         }
         return cantidad;
@@ -65,13 +61,12 @@ public class Obtener {
             while (result.next()) {
                 especialidad = result.getString(2);
             }
-
         } catch (Exception e) {
-            System.out.println("ERROR:"+e.getMessage());
+            System.out.println("ERROR:" + e.getMessage());
         }
         return especialidad;
     }
-    
+
     public String obtenerCodExamen(String nombre) {
         String query = "SELECT * FROM Examen WHERE nombre = ?";
         String cantidad = "";
@@ -83,10 +78,9 @@ public class Obtener {
             ResultSet result = preSt.executeQuery();
 
             while (result.next()) {
-                cantidad = result.getString("codigo");
+                cantidad += result.getString("codigo");
             }
 
-            connection.close();
         } catch (SQLException e) {
         }
         return cantidad;

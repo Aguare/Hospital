@@ -51,10 +51,17 @@ public class LeerArchivo {
             ingresarResultados(resultado);
             ingresarCitaMedica(cita);
             ingresarInforme(informe);
-            imprimirResultados();
         } catch (IOException | ParserConfigurationException | SAXException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public ArrayList<String> getCorrecto() {
+        return correcto;
+    }
+
+    public ArrayList<String> getErrores() {
+        return errores;
     }
 
     private void ingresarMedicos(NodeList medicos) {
@@ -73,19 +80,14 @@ public class LeerArchivo {
                 String password = element.getElementsByTagName("CONTRASEÑA").item(0).getTextContent().trim();
                 String horaInicio = element.getElementsByTagName("INICIO").item(0).getTextContent().trim();
                 String horaSalida = element.getElementsByTagName("FIN").item(0).getTextContent().trim();
-                if (insertar.medico(codigo, nombre, colegiado, DPI, telefono, correo, fechaInicio, horaInicio, horaSalida, password, InsertarEditar.insertar)) {
-                    correcto.add("Médico = " + codigo + ", " + nombre);
-                } else {
-                    errores.add("Médico = " + codigo + ", " + nombre);
-                }
+                insertarListado(("Médico = " + codigo + ", " + nombre), insertar.medico(codigo, nombre, colegiado, DPI,
+                        telefono, correo, fechaInicio, horaInicio, horaSalida, password, InsertarEditar.insertar));
+
                 NodeList espe = element.getElementsByTagName("TITULO");
                 for (int j = 0; j < espe.getLength(); j++) {
                     Node especialidad = espe.item(j);
-                    if (insertar.insertarEspecialidadesMedico(codigo, especialidad.getTextContent())) {
-                        correcto.add("Especialidad Medico " + codigo + " ->" + especialidad.getTextContent());
-                    } else {
-                        errores.add("Especialidad Medico " + codigo + " ->" + especialidad.getTextContent());
-                    }
+                    insertarListado(("Especialidad Medico " + codigo + " ->" + especialidad.getTextContent()),
+                            insertar.insertarEspecialidadesMedico(codigo, especialidad.getTextContent()));
                 }
             }
         }
@@ -101,11 +103,7 @@ public class LeerArchivo {
                 String nombre = element.getElementsByTagName("NOMBRE").item(0).getTextContent().trim();
                 String password = element.getElementsByTagName("CONTRASEÑA").item(0).getTextContent().trim();
                 String DPI = element.getElementsByTagName("DPI").item(0).getTextContent().trim();
-                if (insertar.insertarAdmin(codigo, nombre, DPI, password, InsertarEditar.insertar)) {
-                    correcto.add("Administrador = " + codigo + ", " + nombre);
-                } else {
-                    errores.add("Administrador = " + codigo + ", " + nombre);
-                }
+                insertarListado(("Administrador = " + codigo + ", " + nombre), insertar.insertarAdmin(codigo, nombre, DPI, password, InsertarEditar.insertar));
             }
         }
     }
@@ -124,23 +122,25 @@ public class LeerArchivo {
                 String correo = element.getElementsByTagName("CORREO").item(0).getTextContent().trim();
                 String fechaInicio = element.getElementsByTagName("TRABAJO").item(0).getTextContent().trim();
                 String password = element.getElementsByTagName("CONTRASEÑA").item(0).getTextContent().trim();
-                String codExamen = obtener.obtenerCodExamen(element.getElementsByTagName("EXAMEN").item(0).getTextContent().trim());
-                NodeList espe = element.getElementsByTagName("DIA");
-                String diasTrabajo = "";
-                for (int j = 0; j < espe.getLength(); j++) {
-                    Node especialidad = espe.item(j);
-                    if (j < espe.getLength() - 1) {
-                        diasTrabajo += especialidad.getTextContent().trim();
-                    } else {
-                        diasTrabajo += especialidad.getTextContent().trim() + ",";
+                String nombreExamen = element.getElementsByTagName("EXAMEN").item(0).getTextContent().trim();
+                if (!nombreExamen.equals("")) {
+                    String codExamen = obtener.obtenerCodExamen(nombreExamen);
+                    NodeList espe = element.getElementsByTagName("DIA");
+                    String diasTrabajo = "";
+                    for (int j = 0; j < espe.getLength(); j++) {
+                        Node especialidad = espe.item(j);
+                        if (j < espe.getLength() - 1) {
+                            diasTrabajo += especialidad.getTextContent().trim();
+                        } else {
+                            diasTrabajo += especialidad.getTextContent().trim() + ",";
+                        }
                     }
-                }
-                if (insertar.laboratorista(codigo, nombre, registro, DPI, telefono, correo, diasTrabajo,
-                        fechaInicio, codExamen, password, InsertarEditar.insertar)) {
-                    correcto.add("Laboratorista = " + codigo + ", " + nombre);
+                    insertarListado(("Laboratorista = " + codigo + ", " + nombre), insertar.laboratorista(codigo, nombre, registro, DPI, telefono, correo, diasTrabajo,
+                            fechaInicio, codExamen, password, InsertarEditar.insertar));
                 } else {
                     errores.add("Laboratorista = " + codigo + ", " + nombre);
                 }
+
             }
         }
     }
@@ -161,12 +161,9 @@ public class LeerArchivo {
                 String tipoSangre = element.getElementsByTagName("SANGRE").item(0).getTextContent().trim();
                 String correo = element.getElementsByTagName("CORREO").item(0).getTextContent().trim();
                 String password = element.getElementsByTagName("CONTRASEÑA").item(0).getTextContent().trim();
-                if (insertar.paciente(codigo, nombre, sexo, fechaNacimiento, DPI, telefono, peso, tipoSangre,
-                        correo, password, InsertarEditar.insertar)) {
-                    correcto.add("Paciente = " + codigo + ", " + nombre);
-                } else {
-                    errores.add("Paciente = " + codigo + ", " + nombre);
-                }
+
+                insertarListado(("Paciente = " + codigo + ", " + nombre), insertar.paciente(codigo, nombre, sexo, fechaNacimiento, DPI, telefono, peso, tipoSangre,
+                        correo, password, InsertarEditar.insertar));
             }
         }
     }
@@ -184,11 +181,7 @@ public class LeerArchivo {
                 String formato = element.getElementsByTagName("INFORME").item(0).getTextContent().trim();
                 String costo = element.getElementsByTagName("COSTO").item(0).getTextContent().trim();
 
-                if (insertar.examen(codigo, nombre, requiereOrden, descripcion, formato, costo, InsertarEditar.insertar)) {
-                    correcto.add("Examen = " + codigo + ", " + nombre);
-                } else {
-                    errores.add("Examen = " + codigo + ", " + nombre);
-                }
+                insertarListado(("Examen = " + codigo + ", " + nombre), insertar.examen(codigo, nombre, requiereOrden, descripcion, formato, costo, InsertarEditar.insertar));
             }
         }
     }
@@ -206,11 +199,7 @@ public class LeerArchivo {
                 String fecha = element.getElementsByTagName("FECHA").item(0).getTextContent().trim();
                 String hora = element.getElementsByTagName("HORA").item(0).getTextContent().trim();
 
-                if (insertar.insertarInformeMedico(codigo, descripcion, fecha, hora, codMedico, codPaciente)) {
-                    correcto.add("Informe Médico = " + codigo + ", " + fecha);
-                } else {
-                    errores.add("Informe Médico = " + codigo + ", " + fecha);
-                }
+                insertarListado(("Informe Médico = " + codigo + ", " + fecha), insertar.insertarInformeMedico(codigo, descripcion, fecha, hora, codMedico, codPaciente));
             }
         }
     }
@@ -233,26 +222,14 @@ public class LeerArchivo {
                 String orden = element.getElementsByTagName("ORDEN").item(0).getTextContent().trim();
                 String codMedico = element.getElementsByTagName("MEDICO").item(0).getTextContent().trim();
                 if (orden.equals("")) {
-                    if (insertar.insertarCitaExamenSin(codigo, fecha, hora, obtener.obtenerCostoExamen(codExamen),
-                            orden, "false", codPaciente, codMedico, codExamen)) {
-                        correcto.add("Cita Examen = " + codigo + ", " + codPaciente);
-                    } else {
-                        errores.add("Cita Examen = " + codigo + ", " + codPaciente);
-                    }
+                    insertarListado(("Cita Examen = " + codigo + ", " + codPaciente), insertar.insertarCitaExamenSin(codigo, fecha, hora, obtener.obtenerCostoExamen(codExamen),
+                            orden, "false", codPaciente, codMedico, codExamen));
                 } else {
-                    if (insertar.insertarCitaExamenOrden(codigo, fecha, hora, obtener.obtenerCostoExamen(codExamen),
-                            orden, "false", codPaciente, codMedico, codExamen)) {
-                        correcto.add("Cita Examen = " + codigo + ", " + codPaciente);
-                    } else {
-                        errores.add("Cita Examen = " + codigo + ", " + codPaciente);
-                    }
+                    insertarListado(("Cita Examen = " + codigo + ", " + codPaciente), insertar.insertarCitaExamenOrden(codigo, fecha, hora, obtener.obtenerCostoExamen(codExamen),
+                            orden, "false", codPaciente, codMedico, codExamen));
                 }
 
-                if (insertar.insertarResultados(codigo, resultados, fecha, codExamen, codLaboratorista)) {
-                    correcto.add("Resultados = " + resultados + ", " + fecha);
-                } else {
-                    errores.add("Resultados = " + resultados + ", " + fecha);
-                }
+                insertarListado(("Resultados = " + resultados + ", " + fecha), insertar.insertarResultados(codigo, resultados, fecha, codExamen, codLaboratorista));
             }
         }
     }
@@ -271,12 +248,7 @@ public class LeerArchivo {
                 String especialidades = obtener.obtenerEspecialidades(medico).trim();
                 String costo = "999.99";
                 costo = obtener.obtenerCostoConsulta(especialidades);
-
-                if (insertar.insertarCitaMedica(codigo, fecha, hora, costo, "false", medico, paciente)) {
-                    correcto.add("Cita Médica = " + codigo + ", " + paciente);
-                } else {
-                    errores.add("Cita Médica = " + codigo + ", " + paciente);
-                }
+                insertarListado(("Cita Médica = " + codigo + ", " + paciente), insertar.insertarCitaMedica(codigo, fecha, hora, costo, "false", medico, paciente));
             }
         }
     }
@@ -289,24 +261,17 @@ public class LeerArchivo {
                 Element element = (Element) cita;
                 String nombre = element.getElementsByTagName("TIPO").item(0).getTextContent().trim();
                 String costoConsulta = element.getElementsByTagName("COSTO").item(0).getTextContent().trim();
-
-                if (insertar.insertarEspecialidad(nombre, costoConsulta, InsertarEditar.insertar)) {
-                    correcto.add("Especialidad = " + nombre + ", " + costoConsulta);
-                } else {
-                    errores.add("Especialidad = " + nombre + ", " + costoConsulta);
-                }
+                insertarListado(("Especialidad = " + nombre + ", " + costoConsulta), insertar.insertarEspecialidad(nombre, costoConsulta, InsertarEditar.insertar));
             }
         }
     }
 
-    private void imprimirResultados() {
-        System.out.println(">>>>>>>CARGADO EXITÓSAMENTE<<<<<<<<<<");
-        for (String string : correcto) {
-
-        }
-        System.out.println("\n>>>>>>>>><ERRORES<<<<<<<<<<<<<");
-        for (String errore : errores) {
-
+    private void insertarListado(String frase, boolean opcion) {
+        if (opcion) {
+            correcto.add(frase);
+        } else if (opcion) {
+            errores.add(frase);
         }
     }
+
 }
