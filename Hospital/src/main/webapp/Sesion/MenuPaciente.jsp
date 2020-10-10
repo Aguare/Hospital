@@ -34,7 +34,7 @@
                             <li><a href="#">Últimas 5 consultas</a></li>                         
                         </ul>
                     </li>
-                    <li><b href="#">Paciente: <%= nombrePaciente%></b>
+                    <li><a href="#">Paciente: <%= nombrePaciente%></a>
                         <ul>
                             <li><a href="#">Editar información</a></li>
                             <li><a href="#">Cerrar Sesión</a></li>  

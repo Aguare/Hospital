@@ -15,7 +15,7 @@
         <h1>Encriptar contraseña</h1>
         <a href="Sesion/ArchivoCarga.jsp">Cargar Archivos</a>
         <a href="Sesion/MenuPaciente.jsp">Menú Paciente</a>
-        <form method="POST" action="Sesion/MenuPaciente.jsp">   
+        <form method="POST" action="../Sesion/MenuPaciente.jsp">   
             <input type="text" name="nombrePaciente">
             <input type="submit" name="button">
         </form>
