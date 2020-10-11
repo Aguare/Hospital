@@ -52,7 +52,7 @@
                             <li><a href="#">Ingresos por paciente</a></li>
                         </ul>
                     </li>
-                    <li><b href="#">Paciente: Marcos Andrés Aguare Bravo</b>
+                    <li><b>Paciente: Marcos Andrés Aguare Bravo</b>
                         <ul>
                             <li><a href="#">Editar información</a></li>
                             <li><a href="#">Cerrar Sesión</a></li>  

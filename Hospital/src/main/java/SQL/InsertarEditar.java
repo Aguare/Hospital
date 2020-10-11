@@ -18,7 +18,7 @@ public class InsertarEditar {
         String query = "";
         switch (opcion) {
             case 1:
-                insertarUsuario(codigo, "Administrador", password, 1);
+                insertarUsuario(codigo, "Administrador", password,nombre, 1);
                 query = "INSERT INTO Administrador VALUES (?,?,?)";
                 break;
             case 2:
@@ -43,7 +43,7 @@ public class InsertarEditar {
         }
     }
     
-    private boolean insertarUsuario(String usuario, String tipoUsuario, String password, int opcion) {
+    private boolean insertarUsuario(String usuario, String tipoUsuario, String password,String nombre ,int opcion) {
         //Encriptación de la contraseña
         Encriptar encriptar = new Encriptar();
         String newPass = encriptar.encriptarPass(password);
@@ -51,7 +51,7 @@ public class InsertarEditar {
         String query = "";
         switch (opcion) {
             case 1:
-                query = "INSERT INTO Usuario VALUES (?,?,?)";
+                query = "INSERT INTO Usuario VALUES (?,?,?,?)";
                 break;
             case 2:
                 query = "UPDATE Usuario SET usuario = ?, tipoUsuario = ?, password = ? WHERE usuario = ?";
@@ -63,7 +63,8 @@ public class InsertarEditar {
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
             preSt.setString(1, usuario);
             preSt.setString(2, tipoUsuario);
-            preSt.setString(3, newPass);
+            preSt.setString(3, nombre);
+            preSt.setString(4, newPass);
             if (opcion == 2) {
                 preSt.setString(4, usuario);
             }
@@ -80,7 +81,7 @@ public class InsertarEditar {
         String query = "";
         switch (opcion) {
             case 1:
-                insertarUsuario(codigo, "Medico", password, 1);
+                insertarUsuario(codigo, "Medico", password,nombre, 1);
                 query = "INSERT INTO Medico VALUES (?,?,?,?,?,?,?,?,?)";
                 break;
             case 2:
@@ -117,7 +118,7 @@ public class InsertarEditar {
         String query = "";
         switch (opcion) {
             case 1:
-                insertarUsuario(DPI, "Paciente", password, 1);
+                insertarUsuario(DPI, "Paciente", password,nombre, 1);
                 query = "INSERT INTO Paciente VALUES (?,?,?,?,?,?,?,?,?)";
                 break;
             case 2:
@@ -153,7 +154,7 @@ public class InsertarEditar {
         String query = "";
         switch (opcion) {
             case 1:
-                insertarUsuario(codigo, "Laboratorista", password, 1);
+                insertarUsuario(codigo, "Laboratorista", password,nombre, 1);
                 query = "INSERT INTO Laboratorista VALUES (?,?,?,?,?,?,?,?,?)";
                 break;
             case 2:

@@ -5,6 +5,7 @@ USE Hospital;
 CREATE TABLE IF NOT EXISTS Usuario(
 	usuario VARCHAR(20) NOT NULL,
 	tipoUsuario VARCHAR(13) NOT NULL,
+	nombre VARCHAR(45) NOT NULL,
 	password VARCHAR(100) NOT NULL,
 	PRIMARY KEY(usuario)		
 );

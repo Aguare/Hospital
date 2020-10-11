@@ -9,27 +9,29 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="Menu.jsp"%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../CSS/cargaArchivo.css" rel="stylesheet" type="text/css">
         <title>Cargar Archivo</title>
     </head>
     <body>
-        <% if (request.getAttribute("correcto") == null && request.getAttribute("errores") == null) {%>           
-        <div class="seleccion">
+        <br>
+        <% if (request.getAttribute("correcto") == null && request.getAttribute("errores") == null && request.getAttribute("user") != null) {%>           
+        <style><%@include file="../CSS/cargaArchivo.css"%></style>
+        <div class="seleccion"> 
             <h1>Seleccione los archivos de carga (XML)(IMG,PDF)</h1>
             <h2>El primer archivo es para la base de datos, los segundos para los exámenes de laboratorio (ordenes, resultados)</h2>
-            <form action="../ServletArchivo" method="POST" enctype="multipart/form-data">
+            <form action="ServletArchivo" method="POST" enctype="multipart/form-data">
                 <label>Seleccione el archivo XML:</label>
                 <input type="file" name="archivoCarga" id="archivoCarga" accept=".xml" required>
                 <label>Seleccione los archivos:</label>
-                <input class="form-control" type="file"  name="archivosOtros" id="archivosOtros" accept=".pdf,image/*" multiple required>
+                <input type="file"  name="archivosOtros" id="archivosOtros" accept=".pdf,image/*" multiple required>
                 <br><br>
                 <button type="submit" value="cargar">Cargar Archivo</button>
                 <br><br>
             </form> 
         </div>
         <%} else {%>
+        <%@include file="../Usuario/MAdmin.jsp"%>
         <style><%@include file="../CSS/EstiloMenu.css"%></style>
         <style><%@include file="../CSS/cargaArchivo.css"%></style>
         <br><br>

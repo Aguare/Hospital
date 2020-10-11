@@ -1,21 +1,21 @@
 <%-- 
-    Document   : Menu
-    Created on : 6/10/2020, 23:53:46
+    Document   : MLab
+    Created on : 10/10/2020, 19:15:07
     Author     : aguare
 --%>
 
+<%@page import="Entidades.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="../CSS/EstiloMenu.css" rel="stylesheet" type="text/css">
-        <title>IGSS</title>
+        <title>Laboratorio</title>
     </head>
     <body>
-        <header>
-            <% String nombrePaciente = request.getParameter("nombrePaciente");
-                if (!nombrePaciente.equals("")) {%>                  
+        <%if (request.getParameter("user") != null) {
+                    Usuario user = (Usuario) request.getAttribute("user");
+            %>                  
             <input type="checkbox" id="btn-menu">
             <label for="btn-menu"><img src="../Imagenes/menu.png" alt=""></label>
             <nav class="menu">
@@ -23,7 +23,7 @@
                     <li><a href="#">Inicio</a></li>
                     <li><a href="#">Agendar</a>
                         <ul>
-                            <li><a href="MenuPaciente.jsp?nombrePaciente=<%=nombrePaciente%>">Agendar cita médica</a></li>
+                            <li><a href="MenuPaciente.jsp?user=<%=user%>">Agendar cita médica</a></li>
                             <li><a href="#">Agendar exámen de Laboratorio</a></li>
                         </ul>
                     </li>
@@ -34,7 +34,7 @@
                             <li><a href="#">Últimas 5 consultas</a></li>                         
                         </ul>
                     </li>
-                    <li><a href="#">Paciente: <%= nombrePaciente%></a>
+                    <li><a href="#">Paciente: <%= user.getNombre()%></a>
                         <ul>
                             <li><a href="#">Editar información</a></li>
                             <li><a href="#">Cerrar Sesión</a></li>  
@@ -45,7 +45,5 @@
 
 
             <%}%>
-        </header>
-
     </body>
 </html>
