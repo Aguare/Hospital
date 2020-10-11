@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
@@ -18,7 +19,6 @@ body {
 b{
     color: #FF4B2B;
     text-align: center;
-
 }
 
 h1 {
@@ -111,7 +111,7 @@ Select{
     overflow: hidden;
     width: 800px;
     max-width: 100%;
-    min-height: 480px;
+    min-height: 680px;
 }
 
 .form-container {

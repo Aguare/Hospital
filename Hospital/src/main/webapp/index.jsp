@@ -10,7 +10,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="CSS/EstiloInicioSesion.css" rel="stylesheet" type="text/css">
-        <script type="text/javascript" src="/Js/InicioS.js"></script>
         <title>Iniciar Sesión</title>
     </head>
     <body>
@@ -60,7 +59,7 @@
                     <div class="overlay-panel overlay-left">
                         <h1>BIENVENIDO</h1>
                         <p>DISFRUTARAS DE LOS MEJORES BENEFICIOS PARA TU SALUD</p>
-                        <button class="ghost" id="signIn">Sign In</button>
+                        <button class="ghost" id="signIn">INICIAR SESION</button>
                     </div>
                     <div class="overlay-panel overlay-right">
                         <h1>¿NO TIENES USUARIO?</h1>
@@ -69,7 +68,7 @@
                     </div>
                 </div>
             </div>
-            <
+            
         </div>      
         <%} else {%>
         <b>USUARIO O CONTRASEÑA INCORRECTA, INTENTE DE NUEVO O REGISTRESE</b>
@@ -127,7 +126,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="/Js/InicioS.js"></script>
         <%}%>
     </body>
+    <script type="text/javascript" src="Js/InicioS.js"></script>
 </html>
