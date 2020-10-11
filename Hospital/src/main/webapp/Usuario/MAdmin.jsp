@@ -22,23 +22,38 @@
         <nav class="menu">
             <ul>
                 <li><a href="#">Inicio</a></li>
-                <li><a href="#">Agendar</a>
+                <li><a href="#">Nuevo Registro</a>
                     <ul>
-                        <li><a href="">Agendar cita médica</a></li>
-                        <li><a href="#">Agendar exámen de Laboratorio</a></li>
+                        <li><a href="#">Paciente</a></li>
+                        <li><a href="#">Médico</a></li>
+                        <li><a href="#">Laboratorista</a></li>
+                        <li><a href="#">Exámene</a></li>
+                        <li><a href="#">Consulta</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Informes</a>
+                <li><a href="#">Listados</a>
                     <ul>
-                        <li><a href="#">Ver Historial</a></li>
-                        <li><a href="#">Últimos 5 exámenes</a></li>
-                        <li><a href="#">Últimas 5 consultas</a></li>                         
+                        <li><a href="#">Pacientes</a></li>
+                        <li><a href="../Listas/ListaMedicos.jsp">Médicos</a></li>
+                        <li><a href="#">Laboratoristas</a></li>
+                        <li><a href="#">Exámenes</a></li>
+                        <li><a href="#">Consultas</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Reportes</a>
+                    <ul>
+                        <li><a href="#">10 Médicos con más informes</a></li>
+                        <li><a href="#">Ingresos por médico</a></li>
+                        <li><a href="#">5 Médicos con menos citas</a></li>
+                        <li><a href="#">Exámenes más demandados</a></li>
+                        <li><a href="#">Ingresos por Paciente</a></li>
+                        <li><a href="#">Médicos con más ordenes</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Admin: <%=user.getNombre()%></a>
                     <ul>
                         <li><a href="#">Editar información</a></li>
-                        <li><a href="Logout">Cerrar Sesión</a></li>  
+                        <li><a href="../Logout">Cerrar Sesión</a></li>  
 
                     </ul>
                 </li>

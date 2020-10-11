@@ -14,7 +14,9 @@
         <title>Médico</title>
     </head>
     <body>
-
+        <%if (request.getSession().getAttribute("user") != null) {
+                Usuario user = (Usuario) request.getSession().getAttribute("user");
+        %>                  
         <input type="checkbox" id="btn-menu">
         <nav class="menu">
             <ul>
@@ -32,14 +34,16 @@
                         <li><a href="#">Últimas 5 consultas</a></li>                         
                     </ul>
                 </li>
-                <li><a href="#">Paciente: </a>
+                <li><a href="#">Admin: <%=user.getNombre()%></a>
                     <ul>
                         <li><a href="#">Editar información</a></li>
-                        <li><a href="#">Cerrar Sesión</a></li>  
+                        <li><a href="../Logout">Cerrar Sesión</a></li>  
+
                     </ul>
                 </li>
             </ul>
         </nav> 
-
+        <%response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");%>
+        <%}%>
     </body>
 </html>

@@ -1,0 +1,41 @@
+body{
+    background-color: #ecffff;
+    font-family: Arial;
+}
+
+#main-container{
+    margin: 150px auto;
+    width: 800px;
+}
+
+table{
+    background-color: #FFFFFF;
+    text-align: center;
+    width: 85%;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+h1{
+    text-align: center;
+}
+
+th, td{
+    padding: 5px;
+    border: 1px solid #222;
+}
+
+thead{
+    background-color: #1390f6;
+}
+
+.editar{
+    color: #FFFFFF;
+    background-color: #e8fd00;
+}
+
+.eliminar{
+    color: red;
+}
+
+

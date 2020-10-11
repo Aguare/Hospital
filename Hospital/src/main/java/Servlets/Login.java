@@ -55,7 +55,7 @@ public class Login extends HttpServlet {
                         break;
                 }
             } else {
-                request.setAttribute("success", -1);
+                request.setAttribute("success", 2);
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
             
