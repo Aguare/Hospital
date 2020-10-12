@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS Hospital;
 CREATE SCHEMA IF NOT EXISTS Hospital;
 
 USE Hospital;
@@ -132,3 +133,6 @@ CREATE TABLE IF NOT EXISTS ExamenRealizado(
 	FOREIGN KEY(laboratorista_codigo) REFERENCES Laboratorista(codigo),
 	FOREIGN KEY(citaExamen_codigo) REFERENCES Examen(codigo)
 );
+
+INSERT INTO Usuario VALUES('aguare','Administrador','MARCOS AGUARE','+fVzxZgi5GI=');
+INSERT INTO Administrador VALUES('ADD','MARCOS AGUARE',3300385321201);

@@ -5,6 +5,8 @@ body{
 
 .menu{
     background-color: #4e94ab;
+    position: relative;
+    z-index: 100;
 }
 
 header{
