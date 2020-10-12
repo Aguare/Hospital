@@ -33,10 +33,10 @@
                 </li>
                 <li><a href="#">Listados</a>
                     <ul>
-                        <li><a href="#">Pacientes</a></li>
+                        <li><a href="../Listas/ListaPacientes.jsp">Pacientes</a></li>
                         <li><a href="../Listas/ListaMedicos.jsp">Médicos</a></li>
-                        <li><a href="#">Laboratoristas</a></li>
-                        <li><a href="#">Exámenes</a></li>
+                        <li><a href="../Listas/ListaLaboratoristas.jsp">Laboratoristas</a></li>
+                        <li><a href="../Listas/ListaExamenes.jsp">Exámenes</a></li>
                         <li><a href="#">Consultas</a></li>
                     </ul>
                 </li>

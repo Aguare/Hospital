@@ -2,6 +2,13 @@ body{
     background-color: #ecffff;
     font-family: Arial;
 }
+.opcionNombre{
+    display: none;
+}
+
+.opciones{
+    display: none;
+}
 
 #main-container{
     margin: 150px auto;
@@ -30,12 +37,7 @@ thead{
 }
 
 .editar{
-    color: #FFFFFF;
-    background-color: #e8fd00;
-}
-
-.eliminar{
-    color: red;
+    color: #336600;
 }
 
 

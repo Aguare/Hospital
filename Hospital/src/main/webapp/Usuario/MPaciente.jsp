@@ -34,7 +34,7 @@
                         <li><a href="#">Últimas 5 consultas</a></li>                         
                     </ul>
                 </li>
-                <li><a href="#">Admin: <%=user.getNombre()%></a>
+                <li><a href="#">Paciente: <%=user.getNombre()%></a>
                     <ul>
                         <li><a href="#">Editar información</a></li>
                         <li><a href="../Logout">Cerrar Sesión</a></li>  

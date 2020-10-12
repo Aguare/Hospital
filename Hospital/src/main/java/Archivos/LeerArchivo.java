@@ -130,9 +130,9 @@ public class LeerArchivo {
                     for (int j = 0; j < espe.getLength(); j++) {
                         Node especialidad = espe.item(j);
                         if (j < espe.getLength() - 1) {
-                            diasTrabajo += especialidad.getTextContent().trim();
+                            diasTrabajo += especialidad.getTextContent().trim()+",";
                         } else {
-                            diasTrabajo += especialidad.getTextContent().trim() + ",";
+                            diasTrabajo += especialidad.getTextContent().trim();
                         }
                     }
                     insertarListado(("Laboratorista = " + codigo + ", " + nombre), insertar.laboratorista(codigo, nombre, registro, DPI, telefono, correo, diasTrabajo,

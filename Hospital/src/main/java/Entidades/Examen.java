@@ -8,12 +8,12 @@ public class Examen {
 
     private int codigo;
     private String nombre;
-    private boolean requiereOrden;
+    private String requiereOrden;
     private String descripcion;
     private String formato;
     private Double costo;
 
-    public Examen(int codigo, String nombre, boolean requiereOrden, String descripcion, String formato, Double costo) {
+    public Examen(int codigo, String nombre, String requiereOrden, String descripcion, String formato, Double costo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.requiereOrden = requiereOrden;
@@ -38,11 +38,11 @@ public class Examen {
         this.nombre = nombre;
     }
 
-    public boolean isRequiereOrden() {
+    public String getRequiereOrden() {
         return requiereOrden;
     }
 
-    public void setRequiereOrden(boolean requiereOrden) {
+    public void setRequiereOrden(String requiereOrden) {
         this.requiereOrden = requiereOrden;
     }
 

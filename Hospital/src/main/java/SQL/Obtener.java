@@ -1,6 +1,8 @@
 package SQL;
 
 import Entidades.Especialidad;
+import Entidades.Examen;
+import Entidades.Laboratorista;
 import Entidades.Usuario;
 import Varios.Encriptar;
 import java.sql.Connection;
@@ -162,4 +164,56 @@ public class Obtener {
         return cantidad;
     }
     
+    public ArrayList<Especialidad> obtenerTodasEspecialidades() {
+        String query = "SELECT * FROM Especialidad";
+        ArrayList<Especialidad> especialidades = new ArrayList<>();
+        
+        Connection connection = Conexion.Conexion();
+        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
+            ResultSet result = preSt.executeQuery();
+            
+            while (result.next()) {
+                especialidades.add(new Especialidad(result.getString("nombre"), result.getDouble("costoConsulta")));
+            }
+            
+        } catch (SQLException e) {
+        }
+        return especialidades;
+    }
+    
+    public Examen obtenerExamen(String codigo) {
+        String query = "SELECT * FROM Examen WHERE codigo = ?";
+        Examen examen = null;
+        
+        Connection connection = Conexion.Conexion();
+        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
+            
+            preSt.setString(1, codigo);
+            ResultSet result = preSt.executeQuery();
+            
+            while (result.next()) {
+                examen = new Examen(result.getInt("codigo"), result.getString("nombre"), result.getString("requiereOrden"),
+                        result.getString("descripcion"), result.getString("formato"), result.getDouble("costo"));
+            }
+            
+        } catch (SQLException e) {
+        }
+        return examen;
+    }
+    
+    public ArrayList<Laboratorista> obtenerLaboratoristasLista() {
+        ArrayList<Laboratorista> lab = new ArrayList<>();
+        String query = "SELECT * FROM Laboratorista";
+        Connection connection = Conexion.Conexion();
+        try ( PreparedStatement pre = connection.prepareStatement(query)) {
+            ResultSet r = pre.executeQuery();
+            while (r.next()) {
+                lab.add(new Laboratorista(r.getString("codigo"), r.getString("nombre"), r.getString("noRegistro"),
+                        r.getString("DPI"), r.getInt("telefono"), r.getString("correo"), r.getString("diasTrabajo"),
+                        r.getDate("fechaInicio"), obtenerExamen(r.getString("Examen_codigo"))));
+            }
+        } catch (Exception e) {
+        }
+        return lab;
+    }
 }
