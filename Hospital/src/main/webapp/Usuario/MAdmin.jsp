@@ -15,6 +15,9 @@
 
     </head>
     <body>
+        <%if (request.getSession().getAttribute("user") == null) {
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
+            }%>
         <%if (request.getSession().getAttribute("user") != null) {
                 Usuario user = (Usuario) request.getSession().getAttribute("user");
         %>                  
@@ -24,7 +27,7 @@
                 <li><a href="<%=request.getContextPath()%>/Usuario/MAdmin.jsp">Inicio</a></li>
                 <li><a href="#">Nuevo Registro</a>
                     <ul>
-                        <li><a href="#">Médico</a></li>
+                        <li><a href="<%=request.getContextPath()%>/Ingreso/RegistroMedicos.jsp">Médico</a></li>
                         <li><a href="#">Exámen</a></li>
                         <li><a href="#">Consulta</a></li>
                         <li><a href="#">Laboratorista</a></li>                        
@@ -51,9 +54,7 @@
                 </li>
                 <li><a href="#">Admin: <%=user.getNombre()%></a>
                     <ul>
-                        <li><a href="#">Editar información</a></li>
-                        <li><a href="../Logout">Cerrar Sesión</a></li>  
-
+                        <li><a href="../Logout">Cerrar Sesión</a></li>
                     </ul>
                 </li>
             </ul>
@@ -63,15 +64,17 @@
         <%if (request.getAttribute("mensaje") != null) {
                 int numero = (Integer) request.getAttribute("mensaje");
                 if (numero == 0) {%>
-        <center>
-            <h1>LA OPERACIÓN SE HA REALIZADO CON ÉXITO</h1>
-        </center>
-        <style><%@include file="../CSS/EstiloMenu.css"%></style>
-        <%} else if (numero == 1) {%>
-        <center>
-            <h1>NO SE HA PODIDO REALIZAR LA OPERACIÓN REALIZADA</h1>
-        </center>
-        <style><%@include file="../CSS/EstiloMenu.css"%></style>
+    <center>
+        <h1>LA OPERACIÓN SE HA REALIZADO CON ÉXITO</h1>
+    </center>
+    <style><%@include file="../CSS/EstiloMenu.css"%></style>
+    <%} else if (numero == 1) {%>
+    <center>
+        <h1>NO SE HA PODIDO REALIZAR LA OPERACIÓN</h1>
+    </center>
+    <style><%@include file="../CSS/EstiloMenu.css"%></style>
+    <%} else if (numero == 3) {%>
+    <h1><%=request.getAttribute("info")%></h1>
     <%}
         }
     %>

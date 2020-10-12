@@ -13,6 +13,9 @@
         <title>Laboratorio</title>
     </head>
     <body>
+        <%if (request.getSession().getAttribute("user") == null) {
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
+            }%>
         <%if (request.getSession().getAttribute("user") != null) {
                 Usuario user = (Usuario) request.getSession().getAttribute("user");
         %>                  

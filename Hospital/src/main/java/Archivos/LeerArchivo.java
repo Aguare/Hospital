@@ -130,7 +130,7 @@ public class LeerArchivo {
                     for (int j = 0; j < espe.getLength(); j++) {
                         Node especialidad = espe.item(j);
                         if (j < espe.getLength() - 1) {
-                            diasTrabajo += especialidad.getTextContent().trim()+",";
+                            diasTrabajo += especialidad.getTextContent().trim() + ",";
                         } else {
                             diasTrabajo += especialidad.getTextContent().trim();
                         }
@@ -248,6 +248,7 @@ public class LeerArchivo {
                 String especialidades = obtener.obtenerEspecialidades(medico).trim();
                 String costo = "200.00";
                 costo = obtener.obtenerCostoConsulta(especialidades);
+                System.out.println("COSTO DE CONSULTA -> " + costo);
                 insertarListado(("Cita Médica = " + codigo + ", " + paciente), insertar.insertarCitaMedica(codigo, fecha, hora, costo, "FALSO", medico, paciente));
             }
         }

@@ -22,8 +22,13 @@
                 response.sendRedirect(request.getContextPath() + "/index.jsp");
             }%>
         <% Usuario sesion = (Usuario) request.getSession().getAttribute("user");%>
+        <% if (sesion.getTipoUsuario().equalsIgnoreCase("Administrador")) {%>
         <%@include file="../Usuario/MAdmin.jsp"%>
         <style><%@include file="../CSS/EstiloMenu.css"%></style>
+        <%} else {%>
+        <%@include file="../Usuario/MMedico.jsp"%>
+        <style><%@include file="../CSS/EstiloMenu.css"%></style>
+        <%}%>
         <h1>EXÁMENES DE LABORATORIO</h1>
         <%Consultas consulta = new Consultas();
             ArrayList<Examen> examenes = consulta.obtenerExamenes();%>
@@ -37,7 +42,9 @@
                         <th>DESCRIPCION</th>
                         <th>FORMATO</th>
                         <th>COSTO</th>
+                            <%if (sesion.getTipoUsuario().equals("Administrador")) {%>
                         <th>OPCIONES</th>
+                            <%}%>
                     </tr>
                 </thead>
 
@@ -47,13 +54,15 @@
                     <td><%=pas.getNombre()%></td>
                     <%if (pas.getRequiereOrden().equalsIgnoreCase("verdadero")) {%>
                     <td>SI</td>
-                    <%} else{ %>
+                    <%} else { %>
                     <td>NO</td>
                     <%}%>
                     <td><%=pas.getDescripcion()%></td>
                     <td><%=pas.getFormato()%></td>
                     <td>Q.<%=pas.getCosto()%></td>
+                    <%if (sesion.getTipoUsuario().equals("Administrador")) {%>
                     <td><a href="#" class="editar">Editar</a>
+                        <%}%>
                 </tr>   
                 <%}%>
             </table>

@@ -87,7 +87,7 @@
                     <td><%=medico.getHoraInicio()%></td>
                     <td><%=medico.getHoraFinal()%></td>
                     <%if (user != null && user.getTipoUsuario().equalsIgnoreCase("Administrador")) {%>
-                    <td><a href="#" class="editar">Editar</a>
+                    <td><a href="../Ingreso/RegistroMedicos.jsp?medico=<%=medico.getCodigo() %>" class="editar">Editar</a>
                         <%} else {%>
                     <td><a href="#" class="agendar">Agendar Cita</a>
                 </tr>   

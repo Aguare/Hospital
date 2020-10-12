@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -57,7 +59,7 @@ public class Obtener {
 
     public String obtenerCostoExamen(String codigo) {
         String query = "SELECT * FROM Examen WHERE codigo = ?";
-        String cantidad = "";
+        int cantidad = 0;
 
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
@@ -66,17 +68,17 @@ public class Obtener {
             ResultSet result = preSt.executeQuery();
 
             while (result.next()) {
-                cantidad += result.getString("costo");
+                cantidad += result.getInt("costo");
             }
 
         } catch (SQLException e) {
         }
-        return cantidad;
+        return String.valueOf(cantidad);
     }
 
     public String obtenerCostoConsulta(String nombre) {
         String query = "SELECT * FROM Especialidad WHERE nombre = ?";
-        String cantidad = "";
+        int cantidad = 0;
 
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
@@ -85,12 +87,12 @@ public class Obtener {
             ResultSet result = preSt.executeQuery();
 
             while (result.next()) {
-                cantidad += result.getString("costoConsulta");
+                cantidad += result.getInt("costoConsulta");
             }
 
         } catch (SQLException e) {
         }
-        return cantidad;
+        return String.valueOf(cantidad);
     }
 
     public String obtenerEspecialidades(String codMedico) {
@@ -218,11 +220,12 @@ public class Obtener {
         return lab;
     }
 
-    public Medico obtenerMedico() {
+    public Medico obtenerMedico(String cod) {
         Medico medico = null;
-        String query = "SELECT * FROM Laboratorista";
+        String query = "SELECT * FROM Medico WHERE codigo = ?";
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement pre = connection.prepareStatement(query)) {
+            pre.setString(1, cod);
             ResultSet r = pre.executeQuery();
             while (r.next()) {
                 ArrayList<Especialidad> especialidades = obtenerEspecialidadesLista(r.getString("codigo"));
@@ -250,5 +253,17 @@ public class Obtener {
         } catch (Exception e) {
         }
         return paciente;
+    }
+
+    public String obtenerFechaActual() {
+        Calendar fecha = new GregorianCalendar();
+        int año = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH);
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        return año + "-" + mes + "-" + dia;
+    }
+
+    public String obtenerPathServidor() {
+        return "/home/aguare/ArchivosHospital/";
     }
 }

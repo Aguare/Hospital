@@ -18,6 +18,9 @@
     <%@include file="../Usuario/MAdmin.jsp"%>
     <style><%@include file="../CSS/EstiloMenu.css"%></style>
     <br>
+    <%if (request.getSession().getAttribute("user") == null) {
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
+            }%>
     <% if (request.getParameter("paciente") != null) {
             Obtener obtener = new Obtener();
             Paciente pas = obtener.obtenerPaciente(request.getParameter("paciente"));%>

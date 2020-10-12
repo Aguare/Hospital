@@ -12,24 +12,29 @@ public class CitaExamen {
     private int codigo;
     private Date fecha;
     private Time hora;
-    private Double costo;
+    private double costo;
     private String resultado;
     private String ordenExamen;
-    private boolean estaFinalizado;
+    private String estaFinalizado;
     private Paciente paciente;
     private Medico medico;
     private Examen examen;
 
-    public CitaExamen(int codigo, Date fecha, Time hora, Double costo, boolean estaFinalizado, Paciente paciente, Medico medico, Examen examen) {
+    public CitaExamen(int codigo, Date fecha, Time hora, double costo, String resultado, 
+            String ordenExamen, String estaFinalizado, Paciente paciente, Medico medico, Examen examen) {
         this.codigo = codigo;
         this.fecha = fecha;
         this.hora = hora;
         this.costo = costo;
+        this.resultado = resultado;
+        this.ordenExamen = ordenExamen;
         this.estaFinalizado = estaFinalizado;
         this.paciente = paciente;
         this.medico = medico;
         this.examen = examen;
     }
+
+
 
     public int getCodigo() {
         return codigo;
@@ -63,11 +68,11 @@ public class CitaExamen {
         this.costo = costo;
     }
 
-    public boolean isEstaFinalizado() {
+    public String getEstaFinalizado() {
         return estaFinalizado;
     }
 
-    public void setEstaFinalizado(boolean estaFinalizado) {
+    public void setEstaFinalizado(String estaFinalizado) {
         this.estaFinalizado = estaFinalizado;
     }
 
@@ -110,6 +115,5 @@ public class CitaExamen {
     public void setOrdenExamen(String ordenExamen) {
         this.ordenExamen = ordenExamen;
     }
-    
-    
+
 }
