@@ -64,4 +64,34 @@ public class Consultas {
         }
         return examenes;
     }
+    
+    public ArrayList<Especialidad> obtenerEspecialidadesLista() {
+        String query = "SELECT * FROM Especialidad";
+        ArrayList<Especialidad> especialidad = new ArrayList<>();
+        
+        Connection connection = Conexion.Conexion();
+        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
+            ResultSet result = preSt.executeQuery();
+            while (result.next()) {
+                especialidad.add(new Especialidad(result.getString("nombre"), result.getDouble("costoConsulta")));
+            }
+        } catch (Exception e) {
+        }
+        return especialidad;
+    }
+    
+    public double obtenerIngresosMedico(String codMedico, String fechaInicio, String fechaFinal){
+        String query = "SELECT SUM(costo) AS Total FROM citaExamen WHERE Medico_codigo = ? BETWEEN ? AND ?";
+        double total = 0;
+        
+        Connection connection = Conexion.Conexion();
+        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
+            ResultSet result = preSt.executeQuery();
+            while (result.next()) {
+                total =  result.getDouble("Total");
+            }
+        } catch (Exception e) {
+        }
+        return total;
+    }
 }

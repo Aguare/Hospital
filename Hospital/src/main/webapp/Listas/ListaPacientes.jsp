@@ -58,7 +58,12 @@
                     <td><%=pas.getPeso()%></td>
                     <td><%=pas.getTipoSangre()%></td>
                     <td><%=pas.getCorreo()%></td>
-                    <td><a href="#" class="editar">Ver Historial</a>
+                    <%if (sesion.getTipoUsuario().equalsIgnoreCase("Administrador")) {%>
+                    <td><a href="../Ingreso/EditarPaciente.jsp?paciente=<%=pas.getCodigo()%>" class="editar">Ver Historial</a>
+                        <a href="../Ingreso/EditarPaciente.jsp?paciente=<%=pas.getCodigo()%>" class="editar">Editar</a>
+                    </td><%} else {%>
+                    <td><a href="../Ingreso/EditarPaciente.jsp?paciente=<%=pas.getCodigo()%>" class="editar">Ver Historial</a>
+                        <%}%>
                 </tr>   
                 <%
                     }

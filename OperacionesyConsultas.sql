@@ -30,3 +30,6 @@ UPDATE Administrador SET codigo = ?, nombre = ?, DPI = ? WHERE codigo = ?;
 UPDATE citaExamen SET resultado = ?, estaFinalizado = ? WHERE codigo = ?;
 
 SELECT * FROM Examen WHERE codigo = ?;
+
+//CONSULTAS
+SELECT SUM(costo) AS Total FROM citaExamen WHERE Medico_codigo = ? BETWEEN ? AND ?;

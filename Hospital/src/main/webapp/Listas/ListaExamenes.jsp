@@ -52,7 +52,7 @@
                     <%}%>
                     <td><%=pas.getDescripcion()%></td>
                     <td><%=pas.getFormato()%></td>
-                    <td><%=pas.getCosto()%></td>
+                    <td>Q.<%=pas.getCosto()%></td>
                     <td><a href="#" class="editar">Editar</a>
                 </tr>   
                 <%}%>

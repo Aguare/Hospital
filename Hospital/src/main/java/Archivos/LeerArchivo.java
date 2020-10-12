@@ -223,10 +223,10 @@ public class LeerArchivo {
                 String codMedico = element.getElementsByTagName("MEDICO").item(0).getTextContent().trim();
                 if (orden.equals("")) {
                     insertarListado(("Cita Examen = " + codigo + ", " + codPaciente), insertar.insertarCitaExamenSin(codigo, fecha, hora, obtener.obtenerCostoExamen(codExamen),
-                            orden, "false", codPaciente, codMedico, codExamen));
+                            orden, "FALSO", codPaciente, codMedico, codExamen));
                 } else {
                     insertarListado(("Cita Examen = " + codigo + ", " + codPaciente), insertar.insertarCitaExamenOrden(codigo, fecha, hora, obtener.obtenerCostoExamen(codExamen),
-                            orden, "false", codPaciente, codMedico, codExamen));
+                            orden, "FALSO", codPaciente, codMedico, codExamen));
                 }
 
                 insertarListado(("Resultados = " + resultados + ", " + fecha), insertar.insertarResultados(codigo, resultados, fecha, codExamen, codLaboratorista));
@@ -246,9 +246,9 @@ public class LeerArchivo {
                 String fecha = element.getElementsByTagName("FECHA").item(0).getTextContent().trim();
                 String hora = element.getElementsByTagName("HORA").item(0).getTextContent().trim();
                 String especialidades = obtener.obtenerEspecialidades(medico).trim();
-                String costo = "999.99";
+                String costo = "200.00";
                 costo = obtener.obtenerCostoConsulta(especialidades);
-                insertarListado(("Cita Médica = " + codigo + ", " + paciente), insertar.insertarCitaMedica(codigo, fecha, hora, costo, "false", medico, paciente));
+                insertarListado(("Cita Médica = " + codigo + ", " + paciente), insertar.insertarCitaMedica(codigo, fecha, hora, costo, "FALSO", medico, paciente));
             }
         }
     }

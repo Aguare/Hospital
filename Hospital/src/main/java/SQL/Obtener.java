@@ -3,6 +3,8 @@ package SQL;
 import Entidades.Especialidad;
 import Entidades.Examen;
 import Entidades.Laboratorista;
+import Entidades.Medico;
+import Entidades.Paciente;
 import Entidades.Usuario;
 import Varios.Encriptar;
 import java.sql.Connection;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  * @author aguare
  */
 public class Obtener {
-    
+
     public int cantidadUsuarios() {
         String query = "SELECT COUNT(usuario) AS Total FROM Usuario";
         Connection connection = Conexion.Conexion();
@@ -30,7 +32,7 @@ public class Obtener {
         }
         return numero;
     }
-    
+
     public Usuario obtenerUsuario(String usuario, String password) {
         String query = "SELECT * FROM Usuario WHERE usuario = ?";
         Connection connection = Conexion.Conexion();
@@ -52,70 +54,69 @@ public class Obtener {
         }
         return user;
     }
-    
+
     public String obtenerCostoExamen(String codigo) {
         String query = "SELECT * FROM Examen WHERE codigo = ?";
         String cantidad = "";
-        
+
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
-            
+
             preSt.setString(1, codigo);
             ResultSet result = preSt.executeQuery();
-            
+
             while (result.next()) {
-                cantidad += result.findColumn("costo");
+                cantidad += result.getString("costo");
             }
-            
+
         } catch (SQLException e) {
         }
         return cantidad;
     }
-    
+
     public String obtenerCostoConsulta(String nombre) {
         String query = "SELECT * FROM Especialidad WHERE nombre = ?";
         String cantidad = "";
-        
+
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
-            
+
             preSt.setString(1, nombre);
             ResultSet result = preSt.executeQuery();
-            
+
             while (result.next()) {
-                cantidad += result.findColumn("costoConsulta");
+                cantidad += result.getString("costoConsulta");
             }
-            
+
         } catch (SQLException e) {
         }
         return cantidad;
     }
-    
+
     public String obtenerEspecialidades(String codMedico) {
         String query = "SELECT * FROM EspecialidadesMedico WHERE Medico_codigo = ?";
         String especialidad = "";
-        
+
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
-            
+
             preSt.setString(1, codMedico);
             ResultSet result = preSt.executeQuery();
             while (result.next()) {
-                especialidad = result.getString(2);
+                especialidad = result.getString("Especialidad_nombre");
             }
         } catch (Exception e) {
-            System.out.println("ERROR:" + e.getMessage());
         }
         return especialidad;
     }
-    
+
     public ArrayList<Especialidad> obtenerEspecialidadesLista(String codMedico) {
         String query = "SELECT * FROM EspecialidadesMedico WHERE Medico_codigo = ?";
         ArrayList<Especialidad> especialidad = new ArrayList<>();
-        
+
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
-            
+
             preSt.setString(1, codMedico);
             ResultSet result = preSt.executeQuery();
             while (result.next()) {
@@ -126,14 +127,14 @@ public class Obtener {
         }
         return especialidad;
     }
-    
+
     private Especialidad especialidad(String nombre) {
         String query = "SELECT * FROM Especialidad WHERE nombre = ?";
         Especialidad especialidad = null;
-        
+
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
-            
+
             preSt.setString(1, nombre);
             ResultSet result = preSt.executeQuery();
             while (result.next()) {
@@ -144,63 +145,63 @@ public class Obtener {
         }
         return especialidad;
     }
-    
+
     public String obtenerCodExamen(String nombre) {
         String query = "SELECT * FROM Examen WHERE nombre = ?";
         String cantidad = "";
-        
+
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
-            
+
             preSt.setString(1, nombre);
             ResultSet result = preSt.executeQuery();
-            
+
             while (result.next()) {
                 cantidad += result.getString("codigo");
             }
-            
+
         } catch (SQLException e) {
         }
         return cantidad;
     }
-    
+
     public ArrayList<Especialidad> obtenerTodasEspecialidades() {
         String query = "SELECT * FROM Especialidad";
         ArrayList<Especialidad> especialidades = new ArrayList<>();
-        
+
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
             ResultSet result = preSt.executeQuery();
-            
+
             while (result.next()) {
                 especialidades.add(new Especialidad(result.getString("nombre"), result.getDouble("costoConsulta")));
             }
-            
+
         } catch (SQLException e) {
         }
         return especialidades;
     }
-    
+
     public Examen obtenerExamen(String codigo) {
         String query = "SELECT * FROM Examen WHERE codigo = ?";
         Examen examen = null;
-        
+
         Connection connection = Conexion.Conexion();
         try ( PreparedStatement preSt = connection.prepareStatement(query)) {
-            
+
             preSt.setString(1, codigo);
             ResultSet result = preSt.executeQuery();
-            
+
             while (result.next()) {
                 examen = new Examen(result.getInt("codigo"), result.getString("nombre"), result.getString("requiereOrden"),
                         result.getString("descripcion"), result.getString("formato"), result.getDouble("costo"));
             }
-            
+
         } catch (SQLException e) {
         }
         return examen;
     }
-    
+
     public ArrayList<Laboratorista> obtenerLaboratoristasLista() {
         ArrayList<Laboratorista> lab = new ArrayList<>();
         String query = "SELECT * FROM Laboratorista";
@@ -215,5 +216,39 @@ public class Obtener {
         } catch (Exception e) {
         }
         return lab;
+    }
+
+    public Medico obtenerMedico() {
+        Medico medico = null;
+        String query = "SELECT * FROM Laboratorista";
+        Connection connection = Conexion.Conexion();
+        try ( PreparedStatement pre = connection.prepareStatement(query)) {
+            ResultSet r = pre.executeQuery();
+            while (r.next()) {
+                ArrayList<Especialidad> especialidades = obtenerEspecialidadesLista(r.getString("codigo"));
+                medico = new Medico(r.getString("codigo"), r.getString("nombre"), r.getInt("noColegiado"),
+                        r.getString("DPI"), r.getInt("telefono"), r.getString("correo"), r.getDate("fechaInicio"),
+                        r.getTime("horaInicio"), r.getTime("horaFinal"), especialidades);
+            }
+        } catch (Exception e) {
+        }
+        return medico;
+    }
+
+    public Paciente obtenerPaciente(String codigo) {
+        Paciente paciente = null;
+        String query = "SELECT * FROM Paciente WHERE codigo = ?";
+        Connection connection = Conexion.Conexion();
+        try ( PreparedStatement pre = connection.prepareStatement(query)) {
+            pre.setString(1, codigo);
+            ResultSet r = pre.executeQuery();
+            while (r.next()) {
+                paciente = new Paciente(r.getString("codigo"), r.getString("nombre"), r.getString("sexo"),
+                        r.getDate("fechaNacimiento"), r.getString("DPI"), r.getInt("telefono"), r.getDouble("peso"),
+                        r.getString("tipoSangre"), r.getString("correo"));
+            }
+        } catch (Exception e) {
+        }
+        return paciente;
     }
 }
